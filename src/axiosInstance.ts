@@ -1,11 +1,14 @@
-import axios, { AxiosRequestHeaders } from "axios";
+import axios, { AxiosRequestHeaders } from 'axios'
+import * as dotenv from 'dotenv'
+
+dotenv.config()
 
 const defaultHeaders: AxiosRequestHeaders = {
-  Accept: "application/vnd.github+json",
-  Authorization: "Bearer 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",
-};
+  Accept: 'application/vnd.github+json',
+  Authorization: `Bearer ${process.env.GITHUB_AUTH_TOKEN}`,
+}
 
 export const axiosInstance = axios.create({
-  baseURL: "https://api.github.com/",
+  baseURL: process.env.GITHUB_API,
   headers: defaultHeaders,
-});
+})

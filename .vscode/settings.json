@@ -1,0 +1,18 @@
+{
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "cSpell.words": ["Pressable"],
+  "eslint.format.enable": true,
+  "editor.codeActionsOnSave": { "source.fixAll.eslint": true },
+  // "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "eslint.autoFixOnSave": true,
+  "prettier.configPath": ".prettierrc.js",
+  "eslint.lintTask.enable": true,
+  "jest.jestCommandLine": "yarn test",
+  "jest.rootPath": "src",
+  "[typescript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "[graphql]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+  "java.configuration.updateBuildConfiguration": "interactive"
+}
