@@ -79,8 +79,6 @@ for (var _i = 0, _a = Object.keys(nets); _i < _a.length; _i++) {
     var name = _a[_i];
     for (var _b = 0, _c = nets[name]; _b < _c.length; _b++) {
         var net = _c[_b];
-        // Skip over non-IPv4 and internal (i.e. 127.0.0.1) addresses
-        // 'IPv4' is in Node <= 17, from 18 it's a number 4 or 6
         var familyV4Value = typeof net.family === 'string' ? 'IPv4' : 4;
         if (net.family === familyV4Value && !net.internal) {
             if (!networks[name]) {
@@ -90,6 +88,7 @@ for (var _i = 0, _a = Object.keys(nets); _i < _a.length; _i++) {
         }
     }
 }
+console.log(networks);
 app.use('/', slackEvents.expressMiddleware());
 var Notification = new NotificationService_1.NotificationService();
 setInterval(function () { return __awaiter(void 0, void 0, void 0, function () {
@@ -132,5 +131,5 @@ setInterval(function () { return __awaiter(void 0, void 0, void 0, function () {
     });
 }); }, 60000);
 app.listen(PORT, function () {
-    console.log("App listening at http://".concat(networks[0], ":").concat(PORT));
+    console.log("Runners Bor listening at http://".concat(networks[Object.keys(networks)[0]], ":").concat(PORT));
 });

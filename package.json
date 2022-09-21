@@ -36,7 +36,7 @@
     "typescript": "^4.8.3"
   },
   "lint-staged": {
-    "*.+(ts|tsx|js|jsx)": "yarn eslint --fix --quiet"
+    "*.+(ts)": "yarn eslint --fix --quiet"
   },
   "husky": {
     "hooks": {
