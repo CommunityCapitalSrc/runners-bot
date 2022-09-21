@@ -65,6 +65,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var eventsApi = __importStar(require("@slack/events-api"));
 var dotenv = __importStar(require("dotenv"));
 var express_1 = __importDefault(require("express"));
+var os_1 = require("os");
 var NotificationService_1 = require("./NotificationService");
 var RequestService_1 = require("./RequestService");
 var State_1 = require("./State");
@@ -72,6 +73,23 @@ dotenv.config();
 var PORT = process.env.PORT || 3000;
 var slackEvents = eventsApi.createEventAdapter(process.env.SIGNING_SECRET);
 var app = (0, express_1.default)();
+var nets = (0, os_1.networkInterfaces)();
+var networks = Object.create(null);
+for (var _i = 0, _a = Object.keys(nets); _i < _a.length; _i++) {
+    var name = _a[_i];
+    for (var _b = 0, _c = nets[name]; _b < _c.length; _b++) {
+        var net = _c[_b];
+        // Skip over non-IPv4 and internal (i.e. 127.0.0.1) addresses
+        // 'IPv4' is in Node <= 17, from 18 it's a number 4 or 6
+        var familyV4Value = typeof net.family === 'string' ? 'IPv4' : 4;
+        if (net.family === familyV4Value && !net.internal) {
+            if (!networks[name]) {
+                networks[name] = [];
+            }
+            networks[name].push(net.address);
+        }
+    }
+}
 app.use('/', slackEvents.expressMiddleware());
 var Notification = new NotificationService_1.NotificationService();
 setInterval(function () { return __awaiter(void 0, void 0, void 0, function () {
@@ -85,7 +103,7 @@ setInterval(function () { return __awaiter(void 0, void 0, void 0, function () {
                     var runnerId = _a.runnerId;
                     var runners = State_1.StateService.runnersData;
                     var runner = runners === null || runners === void 0 ? void 0 : runners.find(function (runner) { return runner.id === runnerId; });
-                    return (runner === null || runner === void 0 ? void 0 : runner.status) === 'online';
+                    return (runner === null || runner === void 0 ? void 0 : runner.status) === 'offline';
                 };
                 // NOTE: initial run
                 if (!State_1.StateService.runners) {
@@ -109,11 +127,10 @@ setInterval(function () { return __awaiter(void 0, void 0, void 0, function () {
                         Notification.postRunnerDownMessage({ runnerId: currentRunnerState.id });
                     }
                 });
-                console.log('RUNNERS', runners);
                 return [2 /*return*/];
         }
     });
-}); }, 10000);
+}); }, 60000);
 app.listen(PORT, function () {
-    console.log("App listening at http://localhost:".concat(PORT));
+    console.log("App listening at http://".concat(networks[0], ":").concat(PORT));
 });
