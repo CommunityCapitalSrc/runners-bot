@@ -67,12 +67,14 @@ var eventsApi = __importStar(require("@slack/events-api"));
 var dotenv = __importStar(require("dotenv"));
 var express_1 = __importDefault(require("express"));
 var serverless_http_1 = __importDefault(require("serverless-http"));
-var NotificationService_1 = require("./NotificationService");
-var RequestService_1 = require("./RequestService");
-var State_1 = require("./State");
+var NotificationService_1 = require("./src/NotificationService");
+var RequestService_1 = require("./src/RequestService");
+var State_1 = require("./src/State");
 dotenv.config();
 // const PORT = process.env.PORT || 3000
-var slackEvents = eventsApi.createEventAdapter(process.env.SIGNING_SECRET);
+// const slackEvents = eventsApi.createEventAdapter(process.env.SIGNING_SECRET as string)
+var slackEvents = eventsApi.createEventAdapter('9ef7f283270fcc4564da529fb710abc8');
+// const slackEvents = eventsApi.createEventAdapter(process.env.SIGNING_SECRET)
 exports.app = (0, express_1.default)();
 // const networks = getNetworksData()
 var Notification = new NotificationService_1.NotificationService();
@@ -86,15 +88,17 @@ setInterval(function () { return __awaiter(void 0, void 0, void 0, function () {
                 runners = (_a.sent()).data.runners;
                 checkIsRunnerOffline = function (_a) {
                     var runnerId = _a.runnerId;
+                    // const checkIsRunnerOffline = ({ runnerId }) => {
                     var runners = State_1.State.runnersData;
                     var runner = runners === null || runners === void 0 ? void 0 : runners.find(function (runner) { return runner.id === runnerId; });
-                    console.log('test');
-                    console.log('test');
+                    // console.log('test')
+                    // console.log('test')
                     return (runner === null || runner === void 0 ? void 0 : runner.status) === 'online';
                     // return runner?.status === 'offline'
                 };
                 // AWS TEST ONLY
-                Notification.postRunnerUpMessage({ runnerId: 24 });
+                //
+                // Notification.postRunnerUpMessage({ runnerId: 24 })
                 // AWS TEST ONLY
                 // NOTE: initial run
                 if (!State_1.State.runners) {
@@ -129,4 +133,4 @@ setInterval(function () { return __awaiter(void 0, void 0, void 0, function () {
 // app.listen(PORT, () => {
 // console.log(`Runners Bor listening at http://${networks[Object.keys(networks)[0]]}:${PORT}`)
 // })
-module.exports = (0, serverless_http_1.default)(exports.app);
+module.exports.handler = (0, serverless_http_1.default)(exports.app);
