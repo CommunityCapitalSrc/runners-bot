@@ -2,11 +2,12 @@ import * as SlackWebApi from '@slack/web-api'
 
 import * as dotenv from 'dotenv'
 
-import { StateService } from './State'
+import { State } from './State'
 
 dotenv.config()
 
-const token = process.env.BOT_TOKEN
+// const token = process.env.BOT_TOKEN
+const token = 'xoxb-1023509052823-4087609066962-pBCglmA5uOHCVhtsVqHAF6Rr'
 const { WebClient, LogLevel } = SlackWebApi
 const client = new WebClient(token, {
   logLevel: LogLevel.DEBUG,
@@ -14,7 +15,7 @@ const client = new WebClient(token, {
 
 export class NotificationService {
   public postRunnerDownMessage({ runnerId }: { runnerId: number }) {
-    const runners = StateService.runnersData
+    const runners = State.runnersData
     const runner = runners?.find((runner) => runner.id === runnerId)
     client.chat.postMessage({
       token,
@@ -43,7 +44,7 @@ export class NotificationService {
   }
 
   public postRunnerUpMessage({ runnerId }: { runnerId: number }) {
-    const runners = StateService.runnersData
+    const runners = State.runnersData
     const runner = runners?.find((runner) => runner.id === runnerId)
     client.chat.postMessage({
       token,

@@ -1,30 +1,33 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.StateService = void 0;
-var State = /** @class */ (function () {
-    function State() {
+exports.State = void 0;
+var StateService = /** @class */ (function () {
+    function StateService() {
         this.runners = undefined;
     }
-    State.getInstance = function () {
-        if (!State.instance) {
-            State.instance = new State();
+    StateService.getInstance = function () {
+        if (!StateService.instance) {
+            StateService.instance = new StateService();
         }
-        return State.instance;
+        return StateService.instance;
     };
-    Object.defineProperty(State.prototype, "runnersData", {
+    Object.defineProperty(StateService.prototype, "runnersData", {
         get: function () {
             return this.runners;
         },
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(State.prototype, "initialData", {
+    Object.defineProperty(StateService.prototype, "initialData", {
         set: function (runners) {
             this.runners = runners;
         },
         enumerable: false,
         configurable: true
     });
-    return State;
+    StateService.prototype.updateRunnersData = function (runners) {
+        this.runners = runners;
+    };
+    return StateService;
 }());
-exports.StateService = State.getInstance();
+exports.State = StateService.getInstance();

@@ -28,7 +28,8 @@ var SlackWebApi = __importStar(require("@slack/web-api"));
 var dotenv = __importStar(require("dotenv"));
 var State_1 = require("./State");
 dotenv.config();
-var token = process.env.BOT_TOKEN;
+// const token = process.env.BOT_TOKEN
+var token = 'xoxb-1023509052823-4087609066962-pBCglmA5uOHCVhtsVqHAF6Rr';
 var WebClient = SlackWebApi.WebClient, LogLevel = SlackWebApi.LogLevel;
 var client = new WebClient(token, {
     logLevel: LogLevel.DEBUG,
@@ -38,7 +39,7 @@ var NotificationService = /** @class */ (function () {
     }
     NotificationService.prototype.postRunnerDownMessage = function (_a) {
         var runnerId = _a.runnerId;
-        var runners = State_1.StateService.runnersData;
+        var runners = State_1.State.runnersData;
         var runner = runners === null || runners === void 0 ? void 0 : runners.find(function (runner) { return runner.id === runnerId; });
         client.chat.postMessage({
             token: token,
@@ -67,7 +68,7 @@ var NotificationService = /** @class */ (function () {
     };
     NotificationService.prototype.postRunnerUpMessage = function (_a) {
         var runnerId = _a.runnerId;
-        var runners = State_1.StateService.runnersData;
+        var runners = State_1.State.runnersData;
         var runner = runners === null || runners === void 0 ? void 0 : runners.find(function (runner) { return runner.id === runnerId; });
         client.chat.postMessage({
             token: token,

@@ -1,19 +1,19 @@
 import { TRunnerItem } from './types'
 
-class State {
+class StateService {
   runners: TRunnerItem[] | undefined
-  private static instance: State
+  private static instance: StateService
 
   private constructor() {
     this.runners = undefined
   }
 
-  public static getInstance(): State {
-    if (!State.instance) {
-      State.instance = new State()
+  public static getInstance(): StateService {
+    if (!StateService.instance) {
+      StateService.instance = new StateService()
     }
 
-    return State.instance
+    return StateService.instance
   }
 
   get runnersData() {
@@ -23,6 +23,10 @@ class State {
   set initialData(runners: TRunnerItem[]) {
     this.runners = runners
   }
+
+  public updateRunnersData(runners: TRunnerItem[]) {
+    this.runners = runners
+  }
 }
 
-export const StateService = State.getInstance()
+export const State = StateService.getInstance()
