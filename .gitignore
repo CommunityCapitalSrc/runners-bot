@@ -2,4 +2,5 @@
 /*.env.noumena
 /*.env.kubok_talks
 /node_modules
+/build
 .DS_Store
