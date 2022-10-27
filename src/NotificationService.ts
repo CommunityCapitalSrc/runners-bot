@@ -6,8 +6,8 @@ import { State } from './State'
 
 dotenv.config()
 
-// const token = process.env.BOT_TOKEN
-const token = 'xoxb-1023509052823-4087609066962-pBCglmA5uOHCVhtsVqHAF6Rr'
+const token = process.env.BOT_TOKEN
+// const token = 'xoxb-1023509052823-4087609066962-pBCglmA5uOHCVhtsVqHAF6Rr'
 const { WebClient, LogLevel } = SlackWebApi
 const client = new WebClient(token, {
   logLevel: LogLevel.DEBUG,

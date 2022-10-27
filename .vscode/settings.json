@@ -14,5 +14,19 @@
   "jest.rootPath": "src",
   "[typescript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
   "[graphql]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
-  "java.configuration.updateBuildConfiguration": "interactive"
+  "java.configuration.updateBuildConfiguration": "interactive",
+  "workbench.colorCustomizations": {
+    "list.inactiveSelectionBackground": "#9d07c24d",
+    "activityBar.background": "#9d07c24d",
+    "tab.activeBackground": "#9d07c24d",
+    "titleBar.activeBackground": "#9d07c24d",
+    "sideBar.border": "#9d07c24d",
+    "activityBar.activeBackground": "#9d07c24d",
+    "list.activeSelectionBackground": "#9d07c24d",
+    "tab.inactiveBackground": "#1e1e1e",
+    "statusBar.background": "#1e1e1e",
+    "sideBar.background": "#1e1e1e",
+    "tab.inactiveForeground": "#5c5b5b",
+    "editorLineNumber.foreground": "#5b5c5b"
+  }
 }

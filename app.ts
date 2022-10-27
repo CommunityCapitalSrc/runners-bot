@@ -2,20 +2,20 @@ import * as eventsApi from '@slack/events-api'
 
 import * as dotenv from 'dotenv'
 import express from 'express'
-import serverless from 'serverless-http'
 
 import { NotificationService } from './src/NotificationService'
 import { RequestService } from './src/RequestService'
 import { State } from './src/State'
+import { getNetworksData } from './src/networkHelper'
 
 dotenv.config()
 
-// const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3000
 // const slackEvents = eventsApi.createEventAdapter(process.env.SIGNING_SECRET as string)
 const slackEvents = eventsApi.createEventAdapter('9ef7f283270fcc4564da529fb710abc8')
 // const slackEvents = eventsApi.createEventAdapter(process.env.SIGNING_SECRET)
 export const app = express()
-// const networks = getNetworksData()
+const networks = getNetworksData()
 
 const Notification = new NotificationService()
 
@@ -44,9 +44,14 @@ setInterval(async () => {
   // NOTE: initial run
   if (!State.runners) {
     State.initialData = runners
+    console.log('Runners: ', runners)
     runners.forEach(({ id: runnerId }) => {
       const isRunnerOffline = checkIsRunnerOffline({ runnerId })
+      // TODO: change it to next line
+      // if (isRunnerOffline) {
+      console.log('TEST OBEFERORE', isRunnerOffline)
       if (isRunnerOffline) {
+        console.log('TEST FOR NOTIFY')
         Notification.postRunnerDownMessage({ runnerId })
       }
     })
@@ -69,7 +74,7 @@ setInterval(async () => {
   // }, 60000)
 }, 5000)
 
-// app.listen(PORT, () => {
-// console.log(`Runners Bor listening at http://${networks[Object.keys(networks)[0]]}:${PORT}`)
-// })
-module.exports.handler = serverless(app)
+app.listen(PORT, () => {
+  console.log(`Runners Bot listening at http://${networks[Object.keys(networks)[0]]}:${PORT}`)
+})
+// module.exports.handler = serverless(app)
