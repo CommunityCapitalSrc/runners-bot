@@ -11,9 +11,8 @@ import { getNetworksData } from './src/networkHelper'
 dotenv.config()
 
 const PORT = process.env.PORT || 3000
-// const slackEvents = eventsApi.createEventAdapter(process.env.SIGNING_SECRET as string)
-const slackEvents = eventsApi.createEventAdapter('9ef7f283270fcc4564da529fb710abc8')
-// const slackEvents = eventsApi.createEventAdapter(process.env.SIGNING_SECRET)
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+const slackEvents = eventsApi.createEventAdapter(process.env.SIGNING_SECRET!)
 export const app = express()
 const networks = getNetworksData()
 
@@ -27,31 +26,17 @@ setInterval(async () => {
   } = await RequestService.getRunnersData()
 
   const checkIsRunnerOffline = ({ runnerId }: { runnerId: number }) => {
-    // const checkIsRunnerOffline = ({ runnerId }) => {
     const runners = State.runnersData
     const runner = runners?.find((runner) => runner.id === runnerId)
-    // console.log('test')
-    // console.log('test')
-    return runner?.status === 'online'
-    // return runner?.status === 'offline'
+    return runner?.status === 'offline'
   }
-
-  // AWS TEST ONLY
-  //
-  // Notification.postRunnerUpMessage({ runnerId: 24 })
-  // AWS TEST ONLY
 
   // NOTE: initial run
   if (!State.runners) {
     State.initialData = runners
-    console.log('Runners: ', runners)
     runners.forEach(({ id: runnerId }) => {
       const isRunnerOffline = checkIsRunnerOffline({ runnerId })
-      // TODO: change it to next line
-      // if (isRunnerOffline) {
-      console.log('TEST OBEFERORE', isRunnerOffline)
       if (isRunnerOffline) {
-        console.log('TEST FOR NOTIFY')
         Notification.postRunnerDownMessage({ runnerId })
       }
     })
@@ -71,10 +56,8 @@ setInterval(async () => {
     })
   }
   State.updateRunnersData(runners)
-  // }, 60000)
-}, 5000)
+}, 60000)
 
 app.listen(PORT, () => {
   console.log(`Runners Bot listening at http://${networks[Object.keys(networks)[0]]}:${PORT}`)
 })
-// module.exports.handler = serverless(app)
