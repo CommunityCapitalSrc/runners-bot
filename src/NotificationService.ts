@@ -7,7 +7,6 @@ import { State } from './State'
 dotenv.config()
 
 const token = process.env.BOT_TOKEN
-// const token = 'xoxb-1023509052823-4087609066962-pBCglmA5uOHCVhtsVqHAF6Rr'
 const { WebClient, LogLevel } = SlackWebApi
 const client = new WebClient(token, {
   logLevel: LogLevel.DEBUG,
@@ -55,7 +54,7 @@ export class NotificationService {
           color: '#2eb886',
           title: 'Runners State',
           title_link: 'https://github.com/CommunityCapitalSrc/Noumena-App/settings/actions/runners',
-          text: 'Please pay attention to runners state',
+          text: 'No action needed',
           fields: [
             {
               title: 'Priority',
