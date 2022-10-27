@@ -70,4 +70,12 @@ export class NotificationService {
       ],
     })
   }
+
+  public botLaunchedMessage() {
+    client.chat.postMessage({
+      token,
+      channel: process.env.MOBILE_CI_CHANNEL_ID as string,
+      text: `Runner-Bot started to watch on runner ${process.env.MAC_STADIUM_NAME}`,
+    })
+  }
 }

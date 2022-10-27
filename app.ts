@@ -33,6 +33,7 @@ setInterval(async () => {
 
   // NOTE: initial run
   if (!State.runners) {
+    Notification.botLaunchedMessage()
     State.initialData = runners
     runners.forEach(({ id: runnerId }) => {
       const isRunnerOffline = checkIsRunnerOffline({ runnerId })
@@ -56,7 +57,8 @@ setInterval(async () => {
     })
   }
   State.updateRunnersData(runners)
-}, 60000)
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+}, parseInt(process.env.WATCH_INTERVAL!) || 60000)
 
 app.listen(PORT, () => {
   console.log(`Runners Bot listening at http://${networks[Object.keys(networks)[0]]}:${PORT}`)
