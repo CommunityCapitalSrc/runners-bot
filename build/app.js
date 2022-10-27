@@ -66,17 +66,17 @@ exports.app = void 0;
 var eventsApi = __importStar(require("@slack/events-api"));
 var dotenv = __importStar(require("dotenv"));
 var express_1 = __importDefault(require("express"));
-var serverless_http_1 = __importDefault(require("serverless-http"));
 var NotificationService_1 = require("./src/NotificationService");
 var RequestService_1 = require("./src/RequestService");
 var State_1 = require("./src/State");
+var networkHelper_1 = require("./src/networkHelper");
 dotenv.config();
-// const PORT = process.env.PORT || 3000
+var PORT = process.env.PORT || 3000;
 // const slackEvents = eventsApi.createEventAdapter(process.env.SIGNING_SECRET as string)
 var slackEvents = eventsApi.createEventAdapter('9ef7f283270fcc4564da529fb710abc8');
 // const slackEvents = eventsApi.createEventAdapter(process.env.SIGNING_SECRET)
 exports.app = (0, express_1.default)();
-// const networks = getNetworksData()
+var networks = (0, networkHelper_1.getNetworksData)();
 var Notification = new NotificationService_1.NotificationService();
 exports.app.use('/', slackEvents.expressMiddleware());
 setInterval(function () { return __awaiter(void 0, void 0, void 0, function () {
@@ -103,10 +103,15 @@ setInterval(function () { return __awaiter(void 0, void 0, void 0, function () {
                 // NOTE: initial run
                 if (!State_1.State.runners) {
                     State_1.State.initialData = runners;
+                    console.log('Runners: ', runners);
                     runners.forEach(function (_a) {
                         var runnerId = _a.id;
                         var isRunnerOffline = checkIsRunnerOffline({ runnerId: runnerId });
+                        // TODO: change it to next line
+                        // if (isRunnerOffline) {
+                        console.log('TEST OBEFERORE', isRunnerOffline);
                         if (isRunnerOffline) {
+                            console.log('TEST FOR NOTIFY');
                             Notification.postRunnerDownMessage({ runnerId: runnerId });
                         }
                     });
@@ -130,7 +135,7 @@ setInterval(function () { return __awaiter(void 0, void 0, void 0, function () {
         }
     });
 }); }, 5000);
-// app.listen(PORT, () => {
-// console.log(`Runners Bor listening at http://${networks[Object.keys(networks)[0]]}:${PORT}`)
-// })
-module.exports.handler = (0, serverless_http_1.default)(exports.app);
+exports.app.listen(PORT, function () {
+    console.log("Runners Bot listening at http://".concat(networks[Object.keys(networks)[0]], ":").concat(PORT));
+});
+// module.exports.handler = serverless(app)

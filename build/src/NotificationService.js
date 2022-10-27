@@ -28,8 +28,8 @@ var SlackWebApi = __importStar(require("@slack/web-api"));
 var dotenv = __importStar(require("dotenv"));
 var State_1 = require("./State");
 dotenv.config();
-// const token = process.env.BOT_TOKEN
-var token = 'xoxb-1023509052823-4087609066962-pBCglmA5uOHCVhtsVqHAF6Rr';
+var token = process.env.BOT_TOKEN;
+// const token = 'xoxb-1023509052823-4087609066962-pBCglmA5uOHCVhtsVqHAF6Rr'
 var WebClient = SlackWebApi.WebClient, LogLevel = SlackWebApi.LogLevel;
 var client = new WebClient(token, {
     logLevel: LogLevel.DEBUG,
