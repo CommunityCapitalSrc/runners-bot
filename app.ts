@@ -20,6 +20,11 @@ const Notification = new NotificationService()
 
 app.use('/', slackEvents.expressMiddleware())
 
+setInterval(() => {
+  Notification.postHeartbeat()
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+}, parseInt(process.env.HEART_BEAT_INTERVAL!) || 3600000)
+
 setInterval(async () => {
   const {
     data: { runners },

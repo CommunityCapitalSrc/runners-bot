@@ -78,4 +78,11 @@ export class NotificationService {
       text: `Runner-Bot started to watch on runner ${process.env.MAC_STADIUM_NAME}`,
     })
   }
+  public postHeartbeat() {
+    client.chat.postMessage({
+      token,
+      channel: process.env.MOBILE_CI_CHANNEL_ID as string,
+      text: `Runner monitor works correctly. next heartbeat should appear in 1h`,
+    })
+  }
 }
