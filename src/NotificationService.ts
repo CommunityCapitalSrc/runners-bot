@@ -18,16 +18,14 @@ export class NotificationService {
     const runner = runners?.find((runner) => runner.id === runnerId)
     client.chat.postMessage({
       token,
-      //TODO: restore original channel
-      // channel: process.env.MOBILE_CI_CHANNEL_ID as string,
-      channel: 'C04AEPYR9H6',
-      text: `Runner *${runner?.name}* is down`,
+      channel: process.env.MOBILE_CI_CHANNEL_ID as string,
+      text: `Runner *${runner?.name}* is down <!here>`,
       attachments: [
         {
           color: '#FF033E',
           title: 'Runners State',
           title_link: 'https://github.com/CommunityCapitalSrc/Noumena-App/settings/actions/runners',
-          text: 'Please pay attention to runners state <!here>',
+          text: 'Please pay attention to runners state',
           fields: [
             {
               title: 'Priority',
@@ -49,10 +47,8 @@ export class NotificationService {
     const runner = runners?.find((runner) => runner.id === runnerId)
     client.chat.postMessage({
       token,
-      //TODO: restore original channel
-      // channel: process.env.MOBILE_CI_CHANNEL_ID as string,
-      channel: 'C04AEPYR9H6',
-      text: `Runner *${runner?.name}* is up again <!here> `,
+      channel: process.env.MOBILE_CI_CHANNEL_ID as string,
+      text: `Runner *${runner?.name}* is up again`,
       attachments: [
         {
           color: '#2eb886',
@@ -78,19 +74,15 @@ export class NotificationService {
   public botLaunchedMessage() {
     client.chat.postMessage({
       token,
-      //TODO: restore original channel
-      // channel: process.env.MOBILE_CI_CHANNEL_ID as string,
-      channel: 'C04AEPYR9H6',
-      text: `Runner-Bot started to watch on runner ${process.env.MACHINE_NAME} <!here> `,
+      channel: process.env.MOBILE_CI_CHANNEL_ID as string,
+      text: `Runner-Bot started to watch on runner ${process.env.MACHINE_NAME}`,
     })
   }
   public postHeartbeat() {
     client.chat.postMessage({
       token,
-      //TODO: restore original channel
-      // channel: process.env.MOBILE_CI_CHANNEL_ID as string,
-      channel: 'C04AEPYR9H6',
-      text: `Runner monitor works correctly. next heartbeat should appear in 1h <!here> `,
+      channel: process.env.MOBILE_CI_CHANNEL_ID as string,
+      text: `Runner monitor works correctly. next heartbeat should appear in 1h`,
     })
   }
 }
