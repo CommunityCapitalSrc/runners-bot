@@ -27,7 +27,7 @@ export class NotificationService {
           color: '#FF033E',
           title: 'Runners State',
           title_link: 'https://github.com/CommunityCapitalSrc/Noumena-App/settings/actions/runners',
-          text: 'Please pay attention to runners state <!everyone>',
+          text: 'Please pay attention to runners state <!here>',
           fields: [
             {
               title: 'Priority',
@@ -52,7 +52,7 @@ export class NotificationService {
       //TODO: restore original channel
       // channel: process.env.MOBILE_CI_CHANNEL_ID as string,
       channel: 'C04AEPYR9H6',
-      text: `Runner *${runner?.name}* is up again <!everyone> `,
+      text: `Runner *${runner?.name}* is up again <!here> `,
       attachments: [
         {
           color: '#2eb886',
@@ -81,7 +81,7 @@ export class NotificationService {
       //TODO: restore original channel
       // channel: process.env.MOBILE_CI_CHANNEL_ID as string,
       channel: 'C04AEPYR9H6',
-      text: `Runner-Bot started to watch on runner ${process.env.MACHINE_NAME} <!everyone> `,
+      text: `Runner-Bot started to watch on runner ${process.env.MACHINE_NAME} <!here> `,
     })
   }
   public postHeartbeat() {
@@ -90,7 +90,7 @@ export class NotificationService {
       //TODO: restore original channel
       // channel: process.env.MOBILE_CI_CHANNEL_ID as string,
       channel: 'C04AEPYR9H6',
-      text: `Runner monitor works correctly. next heartbeat should appear in 1h <!everyone> `,
+      text: `Runner monitor works correctly. next heartbeat should appear in 1h <!here> `,
     })
   }
 }
